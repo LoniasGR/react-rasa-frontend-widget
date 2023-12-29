@@ -21,12 +21,13 @@ export const CloseIconButton = styled(IconButton)(({ theme }) => ({
 
 type Props = {
   onCloseClick: () => void;
+  title: string;
 };
 
-function ChatBoxHeader({ onCloseClick }: Props) {
+function ChatBoxHeader({ onCloseClick, title }: Props) {
   return (
     <ChatBoxHeaderContainer onClick={onCloseClick}>
-      <Typography sx={{ paddingLeft: "1rem" }}>Voice Bot</Typography>
+      <Typography sx={{ paddingLeft: "1rem" }}>{title}</Typography>
       <CloseIconButton onClick={onCloseClick}>
         <Close />
       </CloseIconButton>

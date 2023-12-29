@@ -30,6 +30,7 @@ export const ChatBoxContainer = styled(Box)(({ theme }) => ({
 })) as typeof Box;
 
 type Props = {
+  title: string;
   isVisible: boolean;
   onCloseClick: () => void;
   uuid: React.MutableRefObject<string>;
@@ -40,6 +41,7 @@ type Props = {
 };
 
 function ChatBox({
+  title,
   isVisible,
   onCloseClick,
   uuid,
@@ -69,7 +71,7 @@ function ChatBox({
   return (
     <Zoom in={isVisible} unmountOnExit>
       <ChatBoxContainer>
-        <ChatBoxHeader onCloseClick={onCloseClick} />
+        <ChatBoxHeader onCloseClick={onCloseClick} title={title} />
         {error !== undefined ? (
           <ErrorMessage error={error} />
         ) : (

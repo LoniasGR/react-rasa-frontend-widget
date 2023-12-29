@@ -15,6 +15,7 @@ function Chat() {
     <>
       <ChatCircle isVisible={!chatActive} onClick={setChatActiveToggle} />
       <ChatBox
+        title={"Μίλα με την Θεανώ"}
         isVisible={chatActive}
         onCloseClick={setChatActiveToggle}
         uuid={sessionID}
