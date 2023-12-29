@@ -1,9 +1,10 @@
 import { Zoom, styled, Box } from "@mui/material";
-import React, { useEffect } from "react";
+import React from "react";
 import ChatHistory from "../ChatHistory/ChatHistory";
 import ChatBoxHeader from "../ChatBoxHeader";
 import { ChatMessage } from "../../../../models/Message";
 import ChatInput from "../ChatInput/ChatInput";
+import ErrorMessage from "../ErrorMessage/ErrorMessage";
 
 export const ChatBoxContainer = styled(Box)(({ theme }) => ({
   background: theme.palette.secondary.main,
@@ -47,7 +48,8 @@ function ChatBox({
   currentMessage,
   setCurrentMessage,
 }: Props) {
-  useEffect(() => {
+  const [error, setError] = React.useState<Error>();
+  React.useEffect(() => {
     const onEscape = (e: KeyboardEvent) => {
       if (isVisible) {
         e.preventDefault();
@@ -68,13 +70,20 @@ function ChatBox({
     <Zoom in={isVisible} unmountOnExit>
       <ChatBoxContainer>
         <ChatBoxHeader onCloseClick={onCloseClick} />
-        <ChatHistory messages={messages} />
-        <ChatInput
-          uuid={uuid}
-          setMessages={setMessages}
-          currentMessage={currentMessage}
-          setCurrentMessage={setCurrentMessage}
-        />
+        {error !== undefined ? (
+          <ErrorMessage error={error} />
+        ) : (
+          <>
+            <ChatHistory messages={messages} />
+            <ChatInput
+              uuid={uuid}
+              setMessages={setMessages}
+              currentMessage={currentMessage}
+              setCurrentMessage={setCurrentMessage}
+              setError={setError}
+            />
+          </>
+        )}
       </ChatBoxContainer>
     </Zoom>
   );

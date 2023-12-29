@@ -7,7 +7,7 @@ export async function sendMessage(
   uuid: string | MutableRefObject<string>,
   message: string
 ) {
-  const response = await fetch(rasaURL, {
+  const response: Response | Error = await fetch(rasaURL, {
     method: "POST",
     body: JSON.stringify(new Message(uuid, message)),
     mode: "cors",
@@ -15,17 +15,18 @@ export async function sendMessage(
       "Content-type": "application/json",
       "Access-Control-Allow-Origin": "*",
     },
-  }).catch((error) => {
+  }).catch((error: Error) => {
     console.error(error);
-    return null;
+    throw error;
   });
-  if (response === null) {
-    return null;
+
+  if (response instanceof Error) {
+    throw response;
   }
 
   if (response.ok) {
     return (await response.json()) as BotResponse[];
   }
 
-  return null;
+  throw new Error(`Server returned status: ${response.status}`);
 }

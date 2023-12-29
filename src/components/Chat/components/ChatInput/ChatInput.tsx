@@ -23,6 +23,7 @@ type Props = {
   setMessages: React.Dispatch<React.SetStateAction<ChatMessage[]>>;
   currentMessage: string;
   setCurrentMessage: React.Dispatch<React.SetStateAction<string>>;
+  setError: React.Dispatch<React.SetStateAction<Error | undefined>>;
 };
 
 function ChatInput({
@@ -30,6 +31,7 @@ function ChatInput({
   setMessages,
   currentMessage,
   setCurrentMessage,
+  setError,
 }: Props) {
   function advanceChat() {
     setMessages((prev) => [
@@ -37,15 +39,16 @@ function ChatInput({
       { text: currentMessage, bot: false } as ChatMessage,
     ]);
     setCurrentMessage("");
-    sendMessage(uuid, currentMessage).then((resp) => {
-      if (resp !== null) {
+    sendMessage(uuid, currentMessage)
+      .then((resp) => {
         const respChat = resp.map((r) => {
           return { text: r.text, bot: true } as ChatMessage;
         });
         setMessages((prev) => [...prev, ...respChat]);
-      }
-      console.log(resp);
-    });
+      })
+      .catch((e: Error) => {
+        setError(e);
+      });
   }
 
   const onClick = (e: React.MouseEvent) => {
