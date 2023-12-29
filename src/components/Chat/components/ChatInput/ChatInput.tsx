@@ -36,13 +36,17 @@ function ChatInput({
   function advanceChat() {
     setMessages((prev) => [
       ...prev,
-      { text: currentMessage, bot: false } as ChatMessage,
+      { text: currentMessage, bot: false, firstMessage: true } as ChatMessage,
     ]);
     setCurrentMessage("");
     sendMessage(uuid, currentMessage)
       .then((resp) => {
-        const respChat = resp.map((r) => {
-          return { text: r.text, bot: true } as ChatMessage;
+        const respChat = resp.map((r, i) => {
+          return {
+            text: r.text,
+            bot: true,
+            firstMessage: i === 0 ? true : false,
+          } as ChatMessage;
         });
         setMessages((prev) => [...prev, ...respChat]);
       })

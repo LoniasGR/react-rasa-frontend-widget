@@ -17,4 +17,5 @@ export type BotResponse = {
 export type ChatMessage = {
   text: string;
   bot: boolean;
+  firstMessage?: boolean;
 };

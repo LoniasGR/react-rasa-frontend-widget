@@ -20,14 +20,16 @@ export const MessageContainer = styled(Paper)(({ theme }) => ({
 
 type Props = {
   text: string;
-  fromBot: boolean;
+  fromBot?: boolean;
+  firstMessage?: boolean;
 };
 
-function ChatBubble({ text, fromBot }: Props) {
+function ChatBubble({ text, fromBot, firstMessage }: Props) {
   const theme = useTheme();
 
   const commonStyle = {
     fontSize: theme.typography.body2,
+    marginBottom: firstMessage ? "0.2rem" : "0",
   };
 
   const botStyle = {
@@ -45,12 +47,19 @@ function ChatBubble({ text, fromBot }: Props) {
 
   return (
     <Container sx={{ display: "flex", flexDirection: "column" }}>
-      <Typography variant="body2" sx={style}>
-        {fromBot ? "Theano" : "Εσείς"}
-      </Typography>
+      {firstMessage && (
+        <Typography variant="body2" sx={style}>
+          {fromBot ? "Theano" : "Εσείς"}
+        </Typography>
+      )}
       <MessageContainer sx={style}>{text}</MessageContainer>
     </Container>
   );
 }
+
+ChatBubble.defaultProps = {
+  firstMessage: false,
+  fromBot: false,
+};
 
 export default ChatBubble;

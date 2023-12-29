@@ -37,7 +37,14 @@ function ChatHistory({ messages }: Props) {
   return (
     <ChatHistoryWrapper ref={historyRef}>
       {messages.map((m) => {
-        return <ChatBubble key={m.text} text={m.text} fromBot={m.bot} />;
+        return (
+          <ChatBubble
+            key={m.text}
+            text={m.text}
+            fromBot={m.bot}
+            firstMessage={m.firstMessage}
+          />
+        );
       })}
     </ChatHistoryWrapper>
   );
