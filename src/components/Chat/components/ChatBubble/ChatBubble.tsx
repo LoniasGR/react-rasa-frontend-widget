@@ -16,6 +16,7 @@ export const MessageContainer = styled(Paper)(({ theme }) => ({
   paddingBottom: theme.spacing(1.2),
   paddingLeft: theme.spacing(2),
   wordWrap: "break-word",
+  marginBottom: "0.2rem",
   animation: `fadeIn 100ms ${theme.transitions.easing.easeInOut}`,
   "@keyframes fadeIn": {
     "0%": {
@@ -38,7 +39,6 @@ function ChatBubble({ text, fromBot, firstMessage }: Props) {
 
   const commonStyle = {
     fontSize: theme.typography.body2,
-    marginBottom: firstMessage ? "0.2rem" : "0",
   };
 
   const botStyle = {
