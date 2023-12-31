@@ -57,12 +57,14 @@ function ChatInput({
 
   const onClick = (e: React.MouseEvent) => {
     e.preventDefault();
-    advanceChat();
+    if (currentMessage.trim() !== "") {
+      advanceChat();
+    }
   };
 
   const onEnter = (e: React.KeyboardEvent) => {
     e.preventDefault();
-    if (e.key === "Enter") {
+    if (e.key === "Enter" && currentMessage.trim() !== "") {
       e.stopPropagation();
       advanceChat();
     }
@@ -82,7 +84,11 @@ function ChatInput({
         value={currentMessage}
         placeholder="Send a message..."
       />
-      <IconButton sx={{ marginLeft: "auto" }} onClick={onClick}>
+      <IconButton
+        sx={{ marginLeft: "auto" }}
+        onClick={onClick}
+        disabled={currentMessage === ""}
+      >
         <Send />
       </IconButton>
     </ChatInputPaper>
