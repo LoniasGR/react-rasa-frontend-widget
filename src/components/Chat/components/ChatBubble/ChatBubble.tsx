@@ -16,6 +16,15 @@ export const MessageContainer = styled(Paper)(({ theme }) => ({
   paddingBottom: theme.spacing(1.2),
   paddingLeft: theme.spacing(2),
   wordWrap: "break-word",
+  animation: `fadeIn 100ms ${theme.transitions.easing.easeInOut}`,
+  "@keyframes fadeIn": {
+    "0%": {
+      opacity: 0,
+    },
+    "100%": {
+      opacity: 1,
+    },
+  },
 })) as typeof Paper;
 
 type Props = {
