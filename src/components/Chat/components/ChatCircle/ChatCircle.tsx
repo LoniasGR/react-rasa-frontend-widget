@@ -27,10 +27,7 @@ type Props = {
 function ChatCircle({ isVisible, onClick }: Props) {
   return (
     <Zoom in={isVisible} unmountOnExit>
-      <RoundButton
-        aria-label="chat"
-        onClick={onClick}
-      >
+      <RoundButton aria-label="chat" onClick={onClick}>
         <ChatIcon />
       </RoundButton>
     </Zoom>
